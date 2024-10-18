@@ -2,6 +2,11 @@
   hosts: web  # Target hosts where it will be executed
   become: yes # Root privilege 
   
+  vars:
+    apache_port: 9090
+    src_path: /home/ec2-user/practice/index.html
+    dest_path: /var/www/html/
+  
   tasks:
     - name: Install Apache
       dnf:
@@ -11,17 +16,25 @@
       service:
         name: httpd
         state: started
+      tags:
+        - start
+        - initlization
     - name: Copy the file
       copy:
-        src: /home/ec2-user/practice/index.html
-        dest: /var/www/html/
-    - name: Modify the port to 9090
+        src: "{{ src_path }}"
+        dest: "{{ dest_path }}"
+      tags:
+        - copy
+    - name: Modify the port to "{{ apache_port }}"
       lineinfile:
         path: /etc/httpd/conf/httpd.conf
         regexp: '^Listen '
         insertafter: '^#Listen '
-        line: Listen 9090
-    - name: ReStart the apache service
+        line: "Listen {{ apache_port }}"
+      notify: ReStart1 the apache service - mahindra
+  handlers: 
+    - name: ReStart1 the apache service - mahindra
       service:
         name: httpd
         state: restarted
+
