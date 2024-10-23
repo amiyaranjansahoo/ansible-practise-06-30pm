@@ -1,0 +1,17 @@
+- name: user creation
+  hosts: web  # Target hosts where it will be executed
+  become: yes # Root privilege
+  gather_facts: yes
+
+ 
+
+  tasks:
+        
+    - name: User creation  in a loop
+      user:
+        name: "{{ item }}"
+      loop:
+        - user1
+        - user2
+        - user3
+        - user4

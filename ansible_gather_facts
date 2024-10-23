@@ -1,0 +1,11 @@
+- name: Understanding the gather facts module
+  hosts: web  # Target hosts where it will be executed
+  become: yes # Root privilege
+  gather_facts: yes
+
+ 
+
+  tasks:
+    - name: gather facts
+      debug:
+        var: ansible_facts
