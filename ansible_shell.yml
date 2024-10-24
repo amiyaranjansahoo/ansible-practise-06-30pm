@@ -1,0 +1,11 @@
+- name: Understanding the command module 
+  hosts: web  # Target hosts where it will be executed
+  become: yes # Root privilege 
+  
+  tasks:
+    - name: command module demo
+      shell: uptime | cut -d" " -f4
+      register: mahindra
+    - name: Display the stdout
+      debug:
+        var: mahindra.stdout 

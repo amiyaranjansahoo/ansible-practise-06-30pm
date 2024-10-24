@@ -1,0 +1,6 @@
+- name: Controlling the Apache 
+  hosts: web  # Target hosts where it will be executed
+  become: yes
+
+  roles:
+    - apache

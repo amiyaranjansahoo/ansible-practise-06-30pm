@@ -1,0 +1,7 @@
+- name: Understanding the command module 
+  hosts: web  # Target hosts where it will be executed
+  become: yes # Root privilege 
+  
+  tasks:
+    - name: command module demo
+      command: uptime
